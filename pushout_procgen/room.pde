@@ -58,7 +58,9 @@ class Room {
     w = int(random(wRange[0], wRange[1]));
     h = int(random(hRange[0], hRange[1]));
     
-    angle = random(2*PI);
+    //angle = random(2*PI);
+    angle = int(random(0,4))*(PI/2);
+    
   }
   
   public boolean overlaps (Room t) { // Checks if self overlaps t room

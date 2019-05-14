@@ -1,11 +1,11 @@
 ArrayList<Room> rooms = new ArrayList<Room>();
-int roomCount = 1000;
+int roomCount = 15;
 int offx = 0;
 int offy = 0;
 
 void setup() {  
   size(1000, 1000);
-  Room inRoom = nRoom(); // Inital room REMOVING THIS WILL BREAK THE PROGRAM
+  Room inRoom = nRoom(width/2, height/2); // Inital room REMOVING THIS WILL BREAK THE PROGRAM
   inRoom.col = color(255, 255, 0);
   inRoom.ID = "MOMMY";
 
@@ -16,27 +16,27 @@ void setup() {
 int pmx;
 int pmy;
 void draw () {
-  
+
   background(0);
-  
+
   grid (20, 20, offx, offy);
   for (Room r : rooms) {
     r.display();
   }
-  
+
   boolean hover = false;
-  for (Room r : rooms){
-     if ((mouseX-offx < r.x+r.w && mouseX-offx > r.x-r.w) && (mouseY-offy < r.y+r.h && mouseY-offy > r.y-r.h)){
-       hover = true;
-     }
+  for (Room r : rooms) {
+    if ((mouseX-offx < r.x+r.w && mouseX-offx > r.x-r.w) && (mouseY-offy < r.y+r.h && mouseY-offy > r.y-r.h)) {
+      hover = true;
+    }
   }
-  
+
   if (hover)
     cursor(HAND);
   else
     cursor(ARROW);
 
-  if (mouseButton == LEFT){
+  if (mouseButton == LEFT) {
     cursor(MOVE);
     offx += mouseX-pmx;
     offy += mouseY-pmy;
@@ -44,17 +44,18 @@ void draw () {
 
   float timec = 2;
   //if (frameCount % timec == 0 ){
-   
+
   //}
   //build();
-  
+
   pmx = mouseX;
   pmy = mouseY;
 }
 
 
 Room build () {
-  Room curRoom = nRoom ();
+  Room mother = rooms.get(int(random(0, rooms.size())));
+  Room curRoom = nRoom (mother.x, mother.y);
   curRoom.col = color(0, 255, 0);
   boolean overlapping = true;
 
@@ -96,8 +97,8 @@ void grid (int stepx, int stepy, int offx, int offy) {
   }
 }
 
-Room nRoom () {
-  Room newRoom = new Room (width / 2, height / 2, 10.0, 50.0, 10.0, 50.0);
+Room nRoom (float x, float y) {
+  Room newRoom = new Room (x, y, 10.0, 50.0, 10.0, 50.0);
   rooms.add(newRoom);
   return newRoom;
 }
