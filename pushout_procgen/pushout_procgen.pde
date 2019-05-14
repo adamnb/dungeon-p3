@@ -1,5 +1,7 @@
 ArrayList<Room> rooms = new ArrayList<Room>();
-int roomCount = 100;
+int roomCount = 1000;
+int offx = 0;
+int offy = 0;
 
 void setup() {  
   size(1000, 1000);
@@ -11,18 +13,43 @@ void setup() {
     build().ID = str(i);
 }
 
+int pmx;
+int pmy;
 void draw () {
+  
   background(0);
-
-  grid (20, 20, 0, 0);
+  
+  grid (20, 20, offx, offy);
   for (Room r : rooms) {
     r.display();
   }
+  
+  boolean hover = false;
+  for (Room r : rooms){
+     if ((mouseX-offx < r.x+r.w && mouseX-offx > r.x-r.w) && (mouseY-offy < r.y+r.h && mouseY-offy > r.y-r.h)){
+       hover = true;
+     }
+  }
+  
+  if (hover)
+    cursor(HAND);
+  else
+    cursor(ARROW);
 
+  if (mouseButton == LEFT){
+    cursor(MOVE);
+    offx += mouseX-pmx;
+    offy += mouseY-pmy;
+  }
 
-  float timec = 1;
+  float timec = 2;
   //if (frameCount % timec == 0 ){
+   
+  //}
   //build();
+  
+  pmx = mouseX;
+  pmy = mouseY;
 }
 
 
@@ -70,7 +97,7 @@ void grid (int stepx, int stepy, int offx, int offy) {
 }
 
 Room nRoom () {
-  Room newRoom = new Room (width / 2, height / 2, 10.0,50.0, 10.0, 50.0);
+  Room newRoom = new Room (width / 2, height / 2, 10.0, 50.0, 10.0, 50.0);
   rooms.add(newRoom);
   return newRoom;
 }

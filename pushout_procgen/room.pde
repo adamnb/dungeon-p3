@@ -23,7 +23,7 @@ class Room {
       ecc = h/w;
     }
     
-    if ((mouseX < x+w && mouseX > x-w) && (mouseY < y+h && mouseY > y-h)){
+    if ((mouseX-offx < x+w && mouseX-offx > x-w) && (mouseY-offy < y+h && mouseY-offy > y-h)){
       a = 255;
       
       if (!info){
@@ -35,14 +35,16 @@ class Room {
         info = true;
       }
     }
-    else{ info = false; }
+    else{ 
+      info = false;
+    }
     
     rectMode(RADIUS);
     strokeWeight(1);  
     stroke(255, 255, 255);
     //noStroke();
     fill (red(col), green(col), blue(col), a);
-    rect(x, y, w, h);
+    rect(x+offx, y+offy, w, h);
     strokeWeight(5);
     
     stroke(255, 255, 0);
